@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Aniversário, Marjory ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonte elegante -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(180deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 600px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(255,255,255,0.1);
+      animation: fadeIn 2s ease;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 15px 30px;
+      font-size: 1em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: #e63946;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff4d5a;
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      font-size: 2em;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TELA 1 -->
+  <div class="container" id="step1">
+    <div class="card">
+      <h1>Hoje é um dia muito especial 💖</h1>
+      <p>Porque é o dia em que o mundo ficou mais bonito…</p>
+      <button onclick="nextStep(2)">Clique aqui 🎁</button>
+    </div>
+  </div>
+
+  <!-- TELA 2 -->
+  <div class="container hidden" id="step2">
+    <div class="card">
+      <h1>Feliz Aniversário, Marjory 🎂❤️</h1>
+      <p>
+        Hoje, 12/02, o dia amanheceu diferente.<br>
+        Porque é o dia da pessoa que ilumina meus dias,<br>
+        arranca meus sorrisos e faz meu coração bater mais forte.
+      </p>
+      <p>
+        Que esse novo ano venha com saúde, amor,<br>
+        sonhos realizados e muitas conquistas.<br>
+        E que eu possa estar ao seu lado em cada uma delas.
+      </p>
+      <button onclick="nextStep(3)">Tem mais uma coisa… ✨</button>
+    </div>
+  </div>
+
+  <!-- TELA 3 -->
+  <div class="container hidden" id="step3">
+    <div class="card">
+      <h2>E para comemorar do jeito que você merece… 🍷</h2>
+      <p>
+        Quero te convidar para um jantar especial,<br>
+        preparado com carinho e pensado em cada detalhe.
+      </p>
+      <p>
+        📍 <strong>Local:</strong> Surpresa (mas é restaurante 😌)<br>
+        🗓️ <strong>Data:</strong> 12/02<br>
+        💖 <strong>Companhia:</strong> Nós dois
+      </p>
+      <p class="heart">❤️</p>
+      <h2>Você aceita esse convite?</h2>
+      <button onclick="nextStep(4)">Claro que sim 😍</button>
+    </div>
+  </div>
+
+  <!-- TELA 4 -->
+  <div class="container hidden" id="step4">
+    <div class="card">
+      <h1>Então está combinado 💕</h1>
+      <p>
+        Prepare-se para uma noite inesquecível.<br>
+        Eu te amo ❤️
+      </p>
+      <p class="heart">💖</p>
+    </div>
+  </div>
+
+  <script>
+    function nextStep(step) {
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById("step" + i).classList.add("hidden");
+      }
+      document.getElementById("step" + step).classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
