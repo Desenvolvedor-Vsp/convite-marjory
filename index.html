@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<title>TESTE ATUALIZOU</title>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -9,72 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-  /* brilho suave no card */
-.card {
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-/* efeito de entrada suave */
-.fade {
-  animation: fadeUp 1s ease forwards;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* botão com efeito romântico */
-button {
-  position: relative;
-  overflow: hidden;
-}
-
-button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.4),
-    transparent
-  );
-  transition: 0.6s;
-}
-
-button:hover::after {
-  left: 100%;
-}
-
-/* animação suave nas imagens */
-.gallery img {
-  opacity: 0;
-  transform: scale(0.9);
-  animation: showImg 0.8s ease forwards;
-}
-
-.gallery img:nth-child(1) { animation-delay: .2s; }
-.gallery img:nth-child(2) { animation-delay: .4s; }
-.gallery img:nth-child(3) { animation-delay: .6s; }
-
-@keyframes showImg {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 * { box-sizing: border-box; }
 
 body {
@@ -91,17 +24,18 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  position: relative;
 }
 
 .card {
-  max-width: 680px;
   width: 100%;
-  background: rgba(0,0,0,0.45);
-  padding: 30px 20px;
+  max-width: 700px;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+  padding: 32px 22px;
   border-radius: 22px;
   text-align: center;
-  animation: fadeIn 1.2s ease;
+  border: 1px solid rgba(255,255,255,.15);
+  animation: fadeUp 1.2s ease;
   z-index: 2;
 }
 
@@ -109,76 +43,100 @@ h1, h2 {
   font-family: 'Playfair Display', serif;
 }
 
+p {
+  line-height: 1.7;
+}
+
 button {
-  margin-top: 25px;
-  padding: 14px 30px;
-  border-radius: 30px;
+  margin-top: 26px;
+  padding: 15px 34px;
+  min-width: 230px;
+  border-radius: 40px;
   border: none;
   background: #e63946;
   color: #fff;
   font-size: 1em;
   cursor: pointer;
-  transition: .3s;
+  position: relative;
+  overflow: hidden;
 }
-button:hover { transform: scale(1.07); }
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+  transition: .6s;
+}
+button:hover::after { left: 100%; }
 
 .hidden { display: none; }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
   gap: 12px;
   margin-top: 20px;
 }
+
 .gallery img {
   width: 100%;
   height: 170px;
   object-fit: cover;
   border-radius: 14px;
-  transition: .4s;
+  opacity: 0;
+  transform: scale(.9);
+  animation: showImg .8s ease forwards;
 }
-.gallery img:hover {
-  transform: scale(1.1);
-}
+
+.gallery img:nth-child(1){animation-delay:.2s}
+.gallery img:nth-child(2){animation-delay:.4s}
+.gallery img:nth-child(3){animation-delay:.6s}
 
 .music-btn {
   position: fixed;
   top: 15px;
   right: 15px;
-  background: rgba(0,0,0,.5);
-  border-radius: 50%;
+  background: rgba(0,0,0,.55);
   padding: 12px;
+  border-radius: 50%;
   cursor: pointer;
   z-index: 5;
 }
 
 .heart {
   position: fixed;
-  color: rgba(255,105,180,0.7);
-  animation: fall linear infinite;
   top: -10px;
+  color: rgba(255,105,180,.7);
+  animation: fall linear infinite;
   z-index: 1;
 }
 
-@keyframes fall {
-  to { transform: translateY(110vh); }
+@keyframes fadeUp {
+  from {opacity:0; transform:translateY(25px)}
+  to {opacity:1; transform:translateY(0)}
 }
 
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
+@keyframes showImg {
+  to {opacity:1; transform:scale(1)}
+}
+
+@keyframes fall {
+  to {transform: translateY(110vh)}
 }
 
 @media(max-width:480px){
-  h1 { font-size:1.6em; }
-  .gallery img { height:130px; }
+  h1 { font-size:1.6em }
+  .gallery img { height:130px }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Música -->
 <audio id="music" loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
@@ -199,8 +157,9 @@ button:hover { transform: scale(1.07); }
   <div class="card">
     <h1>Feliz Aniversário, Marjory 🎂❤️</h1>
     <p>
-      Que seu dia seja do tamanho do amor que você espalha.<br>
-      E que esse novo ano venha com tudo que você merece.
+      Hoje eu celebro você.<br>
+      Seu sorriso, seu jeito,<br>
+      e tudo que você faz meu coração sentir.
     </p>
 
     <div class="gallery">
@@ -217,10 +176,10 @@ button:hover { transform: scale(1.07); }
 <div class="container hidden" id="step3">
   <div class="card">
     <h2>Quero comemorar com você 🍷</h2>
-    <p>
+    <p id="convite" style="opacity:0">
       Um jantar especial,<br>
       em um restaurante surpresa,<br>
-      para celebrar você do jeito que merece.
+      pensado em cada detalhe.
     </p>
     <p>
       🗓️ 12/02<br>
@@ -238,70 +197,75 @@ button:hover { transform: scale(1.07); }
       Prepare-se para uma noite inesquecível.<br>
       Eu te amo ❤️
     </p>
+    <button onclick="confirmar()">Confirmar presença 💌</button>
   </div>
 </div>
 
 <script>
-const text = "Porque é o dia da pessoa que mudou minha vida.";
-let index = 0;
-
-function typeText() {
-  if (index < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(index);
-    index++;
-    setTimeout(typeText, 60);
+/* TEXTO DIGITANDO */
+const texto = "Porque é o dia da pessoa que mudou a minha vida.";
+let i = 0;
+function digitar(){
+  if(i < texto.length){
+    document.getElementById("typing").innerHTML += texto.charAt(i);
+    i++;
+    setTimeout(digitar, 55);
   }
 }
-typeText();
+digitar();
 
+/* START + FADE DA MÚSICA */
 function start(){
-  document.getElementById("music").play();
+  const music = document.getElementById("music");
+  music.volume = 0;
+  music.play();
+  let v = 0;
+  const fade = setInterval(()=>{
+    if(v < .8){ v+=.05; music.volume=v; }
+    else clearInterval(fade);
+  },200);
   nextStep(2);
 }
 
+/* TROCA DE TELAS */
 function nextStep(step){
-  for(let i=1;i<=4;i++){
-    document.getElementById("step"+i).classList.add("hidden");
+  for(let s=1;s<=4;s++){
+    document.getElementById("step"+s).classList.add("hidden");
   }
   document.getElementById("step"+step).classList.remove("hidden");
-}
 
-function toggleMusic(){
-  const music = document.getElementById("music");
-  music.paused ? music.play() : music.pause();
-}
-
-// corações
-setInterval(()=>{
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "💖";
-  heart.style.left = Math.random()*100+"vw";
-  heart.style.fontSize = (12 + Math.random()*20)+"px";
-  heart.style.animationDuration = (4 + Math.random()*4)+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),8000);
-}, 300);
-  // animação ao trocar de tela
-function nextStep(step){
-  for(let i=1;i<=4;i++){
-    document.getElementById("step"+i).classList.add("hidden");
+  if(step === 3){
+    setTimeout(()=>{
+      document.getElementById("convite").style.opacity = 1;
+    },1500);
   }
-  const current = document.getElementById("step"+step);
-  current.classList.remove("hidden");
-  current.querySelector(".card").classList.add("fade");
+
+  if(navigator.vibrate) navigator.vibrate(25);
 }
 
-// vibração leve no botão (celular)
-document.querySelectorAll("button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (navigator.vibrate) {
-      navigator.vibrate(20);
-    }
-  });
-});
-</script>
+/* MÚSICA */
+function toggleMusic(){
+  const m = document.getElementById("music");
+  m.paused ? m.play() : m.pause();
+}
 
+/* CORAÇÕES */
+setInterval(()=>{
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random()*100+"vw";
+  h.style.fontSize = (12+Math.random()*20)+"px";
+  h.style.animationDuration = (4+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},300);
+
+/* WHATSAPP */
+function confirmar(){
+  window.open("https://wa.me/?text=Eu%20aceito%20esse%20convite%20💕","_blank");
+}
+</script>
 
 </body>
 </html>
