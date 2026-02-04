@@ -9,6 +9,72 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+  /* brilho suave no card */
+.card {
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* efeito de entrada suave */
+.fade {
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* botão com efeito romântico */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+button:hover::after {
+  left: 100%;
+}
+
+/* animação suave nas imagens */
+.gallery img {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: showImg 0.8s ease forwards;
+}
+
+.gallery img:nth-child(1) { animation-delay: .2s; }
+.gallery img:nth-child(2) { animation-delay: .4s; }
+.gallery img:nth-child(3) { animation-delay: .6s; }
+
+@keyframes showImg {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -216,7 +282,26 @@ setInterval(()=>{
   document.body.appendChild(heart);
   setTimeout(()=>heart.remove(),8000);
 }, 300);
+  // animação ao trocar de tela
+function nextStep(step){
+  for(let i=1;i<=4;i++){
+    document.getElementById("step"+i).classList.add("hidden");
+  }
+  const current = document.getElementById("step"+step);
+  current.classList.remove("hidden");
+  current.querySelector(".card").classList.add("fade");
+}
+
+// vibração leve no botão (celular)
+document.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(20);
+    }
+  });
+});
 </script>
+
 
 </body>
 </html>
