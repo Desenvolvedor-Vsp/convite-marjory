@@ -1,132 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Feliz Aniversário, Marjory ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Feliz Aniversário, Marjory ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fontes -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(180deg, #0f0c29, #302b63, #24243e);
-      color: #fff;
-      text-align: center;
-    }
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(180deg,#0f0c29,#302b63,#24243e);
+  color: #fff;
+  overflow-x: hidden;
+}
 
-    .container {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
 
-    .card {
-      width: 100%;
-      max-width: 650px;
-      background: rgba(0,0,0,0.45);
-      border-radius: 20px;
-      padding: 30px 20px;
-      box-shadow: 0 0 30px rgba(255,255,255,0.1);
-      animation: fadeIn 1.5s ease;
-    }
+.card {
+  max-width: 680px;
+  width: 100%;
+  background: rgba(0,0,0,0.45);
+  padding: 30px 20px;
+  border-radius: 22px;
+  text-align: center;
+  animation: fadeIn 1.2s ease;
+  z-index: 2;
+}
 
-    h1, h2 {
-      font-family: 'Playfair Display', serif;
-    }
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
 
-    h1 {
-      font-size: 2em;
-    }
+button {
+  margin-top: 25px;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  background: #e63946;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: .3s;
+}
+button:hover { transform: scale(1.07); }
 
-    p {
-      font-size: 1em;
-      line-height: 1.6;
-    }
+.hidden { display: none; }
 
-    button {
-      margin-top: 25px;
-      padding: 14px 28px;
-      font-size: 1em;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      background: #e63946;
-      color: white;
-      transition: 0.3s;
-    }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.gallery img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: .4s;
+}
+.gallery img:hover {
+  transform: scale(1.1);
+}
 
-    button:hover {
-      background: #ff4d5a;
-      transform: scale(1.05);
-    }
+.music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: rgba(0,0,0,.5);
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  z-index: 5;
+}
 
-    .hidden {
-      display: none;
-    }
+.heart {
+  position: fixed;
+  color: rgba(255,105,180,0.7);
+  animation: fall linear infinite;
+  top: -10px;
+  z-index: 1;
+}
 
-    .heart {
-      font-size: 2em;
-      animation: pulse 1.5s infinite;
-      margin-top: 10px;
-    }
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
 
-    /* Galeria */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      margin-top: 20px;
-    }
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
 
-    .gallery img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
-    /* Mobile */
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.6em;
-      }
-      .gallery img {
-        height: 130px;
-      }
-    }
-  </style>
+@media(max-width:480px){
+  h1 { font-size:1.6em; }
+  .gallery img { height:130px; }
+}
+</style>
 </head>
+
 <body>
 
+<!-- Música -->
 <audio id="music" loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
+<div class="music-btn" onclick="toggleMusic()">🎶</div>
+
 <!-- TELA 1 -->
 <div class="container" id="step1">
   <div class="card">
-    <h1>Hoje é um dia muito especial 💖</h1>
-    <p>Porque é o aniversário da pessoa que faz minha vida mais feliz.</p>
+    <h1>Hoje não é um dia qualquer 💖</h1>
+    <p id="typing"></p>
     <button onclick="start()">Clique aqui 🎁</button>
   </div>
 </div>
@@ -136,9 +132,8 @@
   <div class="card">
     <h1>Feliz Aniversário, Marjory 🎂❤️</h1>
     <p>
-      Hoje, 12/02, o mundo acordou mais bonito.<br>
-      Que seu novo ano seja leve, feliz<br>
-      e cheio de amor — como você.
+      Que seu dia seja do tamanho do amor que você espalha.<br>
+      E que esse novo ano venha com tudo que você merece.
     </p>
 
     <div class="gallery">
@@ -147,7 +142,7 @@
       <img src="foto3.jpg">
     </div>
 
-    <button onclick="nextStep(3)">Tem mais uma surpresa… ✨</button>
+    <button onclick="nextStep(3)">Tenho um convite… ✨</button>
   </div>
 </div>
 
@@ -156,15 +151,14 @@
   <div class="card">
     <h2>Quero comemorar com você 🍷</h2>
     <p>
-      Um jantar especial, pensado em cada detalhe,<br>
+      Um jantar especial,<br>
+      em um restaurante surpresa,<br>
       para celebrar você do jeito que merece.
     </p>
     <p>
-      📍 <strong>Local:</strong> Surpresa (restaurante 😌)<br>
-      🗓️ <strong>Data:</strong> 12/02<br>
-      💖 <strong>Companhia:</strong> Nós dois
+      🗓️ 12/02<br>
+      💖 Nós dois
     </p>
-    <div class="heart">❤️</div>
     <button onclick="nextStep(4)">Claro que sim 😍</button>
   </div>
 </div>
@@ -172,27 +166,55 @@
 <!-- TELA 4 -->
 <div class="container hidden" id="step4">
   <div class="card">
-    <h1>Te espero 💕</h1>
+    <h1>Então está combinado 💕</h1>
     <p>
       Prepare-se para uma noite inesquecível.<br>
       Eu te amo ❤️
     </p>
-    <div class="heart">💖</div>
   </div>
 </div>
 
 <script>
-  function start() {
-    document.getElementById("music").play();
-    nextStep(2);
-  }
+const text = "Porque é o dia da pessoa que mudou minha vida.";
+let index = 0;
 
-  function nextStep(step) {
-    for (let i = 1; i <= 4; i++) {
-      document.getElementById("step" + i).classList.add("hidden");
-    }
-    document.getElementById("step" + step).classList.remove("hidden");
+function typeText() {
+  if (index < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(index);
+    index++;
+    setTimeout(typeText, 60);
   }
+}
+typeText();
+
+function start(){
+  document.getElementById("music").play();
+  nextStep(2);
+}
+
+function nextStep(step){
+  for(let i=1;i<=4;i++){
+    document.getElementById("step"+i).classList.add("hidden");
+  }
+  document.getElementById("step"+step).classList.remove("hidden");
+}
+
+function toggleMusic(){
+  const music = document.getElementById("music");
+  music.paused ? music.play() : music.pause();
+}
+
+// corações
+setInterval(()=>{
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.fontSize = (12 + Math.random()*20)+"px";
+  heart.style.animationDuration = (4 + Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}, 300);
 </script>
 
 </body>
