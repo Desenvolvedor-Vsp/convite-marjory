@@ -1,197 +1,245 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Convite Especial 💖</title>
+<title>Marjory 💖</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
 body{
-    margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#ff4e8a,#ff9ecb);
-    color:white;
-    text-align:center;
-    overflow-x:hidden;
+  min-height:100vh;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow-x:hidden;
+  overflow-y:auto;
+  color:#fff;
 }
 
-.container{
-    padding:40px 20px;
+.card{
+  width:95%;
+  max-width:420px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(12px);
+  border-radius:25px;
+  padding:25px;
+  text-align:center;
+  animation:fade 1.5s;
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
 }
 
-h1{
-    font-size:2.5rem;
-    margin-bottom:10px;
-}
-
-#digitando{
-    font-size:1.2rem;
-    min-height:60px;
-}
+h1{font-size:2.2rem}
+.date{margin-bottom:15px;opacity:.9}
+.typing{min-height:90px;font-size:1.05rem;margin:15px 0;line-height:1.4}
 
 button{
-    padding:12px 25px;
-    border:none;
-    border-radius:30px;
-    background:white;
-    color:#ff4e8a;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:20px;
-    transition:0.3s;
+  border:none;
+  border-radius:30px;
+  padding:12px 22px;
+  margin:6px;
+  background:#ff4d6d;
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+  font-size:14px;
 }
-
-button:hover{
-    transform:scale(1.1);
-}
-
-.carta{
-    display:none;
-    background:white;
-    color:#333;
-    padding:30px;
-    border-radius:20px;
-    margin:30px auto;
-    max-width:500px;
-    animation:fade 1s ease forwards;
-}
+button:hover{transform:scale(1.05)}
 
 @keyframes fade{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-/* Galeria */
-.galeria{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:20px;
-}
-
-.galeria img{
-    width:150px;
-    height:150px;
-    object-fit:cover;
-    border-radius:15px;
-    transition:0.4s;
-}
-
-.galeria img:hover{
-    transform:scale(1.1);
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 /* Corações */
-.coracao{
-    position:fixed;
-    top:-10px;
-    color:white;
-    font-size:20px;
-    animation:cair 5s linear infinite;
+.heart{
+  position:fixed;
+  top:-10px;
+  color:#fff;
+  font-size:18px;
+  animation:fall linear forwards;
+  opacity:.8;
+}
+@keyframes fall{
+  to{transform:translateY(110vh)}
 }
 
-@keyframes cair{
-    to{
-        transform:translateY(100vh);
-        opacity:0;
-    }
+/* Carta */
+#carta{
+  display:none;
+  margin-top:20px;
+  perspective:1000px;
+}
+#cartaInterna{
+  background:#fff;
+  color:#333;
+  padding:20px;
+  border-radius:15px;
+  transform:rotateY(90deg);
+  transition:1s;
+  font-family:Georgia, serif;
+  line-height:1.6;
+}
+
+#slideshow img{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+  transition:opacity .5s;
 }
 
 /* Responsivo */
-@media(max-width:600px){
-    h1{font-size:2rem;}
-    .galeria img{width:100px;height:100px;}
+@media(max-width:400px){
+  h1{font-size:1.8rem}
+  .typing{font-size:.95rem}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<h1>Marjory 💖</h1>
-<p>12/02</p>
-
-<p id="digitando"></p>
-
-<button id="revelar">Revelar Surpresa ✨</button>
-
-<div class="carta" id="carta">
-<h2>Feliz Aniversário 🎉</h2>
-<p>
-Hoje é o seu dia, mas quem ganha o presente sou eu por ter você.
-Prepare-se… porque quero te levar para um jantar especial.
-O local é surpresa 🤫 mas é um restaurante incrível.
-</p>
-
-<button onclick="confirmar()">Confirmar Presença 💌</button>
-
-<div class="galeria">
-<img src="fotos/foto1.jpg">
-<img src="fotos/foto2.jpg">
-<img src="fotos/foto3.jpg">
-</div>
-</div>
-
-<button onclick="toggleMusica()">🎵 Música</button>
-
-</div>
-
-<audio id="bgMusic" loop>
-<source src="musica.mp3" type="audio/mpeg">
+<audio id="music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
 </audio>
+
+<div class="card">
+  <h1>Marjory 💖</h1>
+  <div class="date">12 de Fevereiro</div>
+
+  <div id="typing" class="typing"></div>
+
+  <button id="start">💖 Iniciar</button>
+  <button id="toggleMusic" style="display:none">🔊 Pausar Música</button>
+  <button id="reveal" style="display:none">🍷 Revelar surpresa</button>
+
+  <div id="carta">
+    <div id="cartaInterna">
+      <h3 style="color:#ff4d6d;">Minha querida Marjory 💖</h3>
+      <p id="textoCarta"></p>
+
+      <div id="slideshow">
+        <img id="slide" src="fotos/1.jpg">
+      </div>
+
+      <button onclick="confirmar()" style="margin-top:10px;">
+        💌 Confirmar no WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
 
 <script>
 
-/* TEXTO DIGITANDO */
-const texto = "Você está pronta para uma surpresa inesquecível?";
+/* ELEMENTOS */
+const music=document.getElementById("music");
+const typing=document.getElementById("typing");
+const startBtn=document.getElementById("start");
+const toggleBtn=document.getElementById("toggleMusic");
+const revealBtn=document.getElementById("reveal");
+
+/* TEXTO INICIAL */
+const text="Hoje não é apenas seu aniversário.\nÉ o dia de celebrar você e tudo que faz meu mundo melhor 💕";
 let i=0;
-function digitar(){
-    if(i<texto.length){
-        document.getElementById("digitando").innerHTML += texto.charAt(i);
-        i++;
-        setTimeout(digitar,50);
-    }
+
+/* TEXTO CARTA */
+const textoCarta="Hoje o mundo celebra você.\nEu celebro o privilégio de ter você na minha vida.\nPreparei uma noite especial… um jantar surpresa em um restaurante.\nVocê aceita viver isso comigo? 🍷✨";
+let j=0;
+
+/* SLIDES */
+const images=["fotos/1.jpg","fotos/2.jpg","fotos/3.jpg"];
+let slideIndex=0;
+
+/* DIGITAR TEXTO INICIAL */
+function type(){
+  if(i<text.length){
+    typing.innerHTML+=text[i]=="\n"?"<br>":text[i];
+    i++;
+    setTimeout(type,40);
+  }else{
+    toggleBtn.style.display="inline-block";
+    revealBtn.style.display="inline-block";
+  }
 }
-digitar();
 
-/* REVELAR CARTA + TOCAR MUSICA */
-const btn = document.getElementById("revelar");
-const carta = document.getElementById("carta");
-const audio = document.getElementById("bgMusic");
+/* INICIAR */
+startBtn.onclick=()=>{
+  startBtn.style.display="none";
 
-btn.addEventListener("click",function(){
-    carta.style.display="block";
-    audio.volume=0.5;
-    audio.play();
-    document.body.style.overflow="auto";
-});
+  music.volume = 0.6; // volume normal
+  music.play().catch(e => console.log("Erro ao tocar:", e));
 
-/* TOGGLE MUSICA */
-function toggleMusica(){
-    if(audio.paused){
-        audio.play();
-    }else{
-        audio.pause();
+  type();
+  hearts();
+}
+
+
+
+/* PAUSAR/TOCAR */
+toggleBtn.onclick=()=>{
+  if(music.paused){
+    music.play();
+    toggleBtn.innerText="🔊 Pausar Música";
+  }else{
+    music.pause();
+    toggleBtn.innerText="▶️ Tocar Música";
+  }
+}
+
+/* REVELAR CARTA */
+revealBtn.onclick=()=>{
+  revealBtn.style.display="none";
+  const carta=document.getElementById("carta");
+  const cartaInterna=document.getElementById("cartaInterna");
+
+  carta.style.display="block";
+
+  setTimeout(()=>{
+    cartaInterna.style.transform="rotateY(0deg)";
+    escreverCarta();
+    slideshow();
+  },300);
+}
+
+/* ESCREVER CARTA */
+function escreverCarta(){
+  const el=document.getElementById("textoCarta");
+  function digitar(){
+    if(j<textoCarta.length){
+      el.innerHTML+=textoCarta[j]=="\n"?"<br>":textoCarta[j];
+      j++;
+      setTimeout(digitar,40);
     }
+  }
+  digitar();
+}
+
+/* SLIDESHOW */
+function slideshow(){
+  setInterval(()=>{
+    slideIndex=(slideIndex+1)%images.length;
+    document.getElementById("slide").src=images[slideIndex];
+  },3000);
+}
+
+/* CORAÇÕES */
+function hearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=3+Math.random()*3+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },400);
 }
 
 /* WHATSAPP */
 function confirmar(){
-    window.open("https://wa.me/5592994047770?text=Eu aceito o jantar 💖","_blank");
+  window.open("https://wa.me/5592994047770?text=Eu%20aceito%20o%20jantar%20💖","_blank");
 }
-
-/* CORAÇÕES CAINDO */
-setInterval(()=>{
-    const coracao=document.createElement("div");
-    coracao.classList.add("coracao");
-    coracao.innerHTML="💖";
-    coracao.style.left=Math.random()*100+"vw";
-    coracao.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(coracao);
-    setTimeout(()=>{coracao.remove();},5000);
-},500);
 
 </script>
 
