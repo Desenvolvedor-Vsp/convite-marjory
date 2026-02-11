@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Convite 💖</title>
+<title>Marjory 💖</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
@@ -43,7 +43,6 @@ button{
   cursor:pointer;
   transition:.3s;
 }
-
 button:hover{transform:scale(1.05)}
 
 @keyframes fade{
@@ -51,7 +50,7 @@ button:hover{transform:scale(1.05)}
   to{opacity:1;transform:translateY(0)}
 }
 
-
+/* Corações */
 .heart{
   position:fixed;
   top:-10px;
@@ -60,7 +59,6 @@ button:hover{transform:scale(1.05)}
   animation:fall linear infinite;
   opacity:.8;
 }
-
 @keyframes fall{
   to{transform:translateY(110vh)}
 }
@@ -71,7 +69,6 @@ button:hover{transform:scale(1.05)}
   margin-top:20px;
   perspective:1000px;
 }
-
 #cartaInterna{
   background:#fff;
   color:#333;
@@ -82,21 +79,10 @@ button:hover{transform:scale(1.05)}
   font-family:Georgia, serif;
   line-height:1.6;
 }
-
 #slideshow img{
   width:100%;
   border-radius:12px;
   margin-top:10px;
-}
-
-/* Video */
-#videoContainer{
-  display:none;
-  margin-top:15px;
-}
-video{
-  width:100%;
-  border-radius:15px;
 }
 </style>
 </head>
@@ -117,13 +103,6 @@ video{
   <button id="toggleMusic" style="display:none">🔊 Música</button>
   <button id="reveal" style="display:none">🍷 Revelar surpresa</button>
 
-  <!-- VIDEO -->
-  <div id="videoContainer">
-    <video id="video">
-      <source src="video.mp4" type="video/mp4">
-    </video>
-  </div>
-
   <!-- CARTA -->
   <div id="carta">
     <div id="cartaInterna">
@@ -143,7 +122,7 @@ video{
 
 <script>
 
-/* TEXTO INICIAL DIGITANDO */
+/* TEXTO INICIAL */
 const text="Hoje não é apenas seu aniversário.\nÉ o dia de celebrar você e tudo que faz meu mundo melhor 💕";
 let i=0;
 const typing=document.getElementById("typing");
@@ -165,7 +144,7 @@ let slideIndex=0;
 const textoCarta="Hoje o mundo celebra você.\nEu celebro o privilégio de ter você na minha vida.\nPreparei uma noite especial… um jantar surpresa.\nVocê aceita viver isso comigo? 🍷✨";
 let j=0;
 
-/* FUNÇÃO DIGITAR */
+/* DIGITAR TEXTO INICIAL */
 function type(){
   if(i<text.length){
     typing.innerHTML+=text[i]=="\n"?"<br>":text[i];
@@ -199,28 +178,21 @@ toggleBtn.onclick=()=>{
   music.paused?music.play():music.pause();
 }
 
-/* REVELAR */
+/* REVELAR CARTA */
 revealBtn.onclick=()=>{
   revealBtn.style.display="none";
   toggleBtn.style.display="none";
 
-  const videoContainer=document.getElementById("videoContainer");
-  const video=document.getElementById("video");
   const carta=document.getElementById("carta");
   const cartaInterna=document.getElementById("cartaInterna");
 
-  videoContainer.style.display="block";
-  video.play();
+  carta.style.display="block";
 
-  video.onended=function(){
-    videoContainer.style.display="none";
-    carta.style.display="block";
-    setTimeout(()=>{
-      cartaInterna.style.transform="rotateY(0deg)";
-      escreverCarta();
-      slideshow();
-    },300);
-  }
+  setTimeout(()=>{
+    cartaInterna.style.transform="rotateY(0deg)";
+    escreverCarta();
+    slideshow();
+  },300);
 }
 
 /* ESCREVER CARTA */
@@ -264,4 +236,3 @@ function confirmar(){
 </script>
 </body>
 </html>
-
