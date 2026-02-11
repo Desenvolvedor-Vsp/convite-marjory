@@ -19,7 +19,7 @@ body{
 }
 
 .card{
-  width:100%;
+  width:95%;
   max-width:420px;
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(12px);
@@ -27,11 +27,12 @@ body{
   padding:25px;
   text-align:center;
   animation:fade 1.5s;
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
 }
 
 h1{font-size:2.2rem}
 .date{margin-bottom:15px;opacity:.9}
-.typing{min-height:90px;font-size:1.05rem;margin:15px 0}
+.typing{min-height:90px;font-size:1.05rem;margin:15px 0;line-height:1.4}
 
 button{
   border:none;
@@ -42,6 +43,7 @@ button{
   color:#fff;
   cursor:pointer;
   transition:.3s;
+  font-size:14px;
 }
 button:hover{transform:scale(1.05)}
 
@@ -56,7 +58,7 @@ button:hover{transform:scale(1.05)}
   top:-10px;
   color:#fff;
   font-size:18px;
-  animation:fall linear infinite;
+  animation:fall linear forwards;
   opacity:.8;
 }
 @keyframes fall{
@@ -79,10 +81,18 @@ button:hover{transform:scale(1.05)}
   font-family:Georgia, serif;
   line-height:1.6;
 }
+
 #slideshow img{
   width:100%;
   border-radius:12px;
   margin-top:10px;
+  transition:opacity .5s;
+}
+
+/* Responsivo */
+@media(max-width:400px){
+  h1{font-size:1.8rem}
+  .typing{font-size:.95rem}
 }
 </style>
 </head>
@@ -100,10 +110,9 @@ button:hover{transform:scale(1.05)}
   <div id="typing" class="typing"></div>
 
   <button id="start">💖 Iniciar</button>
-  <button id="toggleMusic" style="display:none">🔊 Música</button>
+  <button id="toggleMusic" style="display:none">🔊 Pausar Música</button>
   <button id="reveal" style="display:none">🍷 Revelar surpresa</button>
 
-  <!-- CARTA -->
   <div id="carta">
     <div id="cartaInterna">
       <h3 style="color:#ff4d6d;">Minha querida Marjory 💖</h3>
@@ -122,33 +131,31 @@ button:hover{transform:scale(1.05)}
 
 <script>
 
-/* TEXTO INICIAL */
-const text="Hoje não é apenas seu aniversário.\nÉ o dia de celebrar você e tudo que faz meu mundo melhor 💕";
-let i=0;
-const typing=document.getElementById("typing");
-
-/* MUSICA */
+/* ELEMENTOS */
 const music=document.getElementById("music");
-music.volume=0;
-
-/* BOTÕES */
+const typing=document.getElementById("typing");
 const startBtn=document.getElementById("start");
 const toggleBtn=document.getElementById("toggleMusic");
 const revealBtn=document.getElementById("reveal");
+
+/* TEXTO INICIAL */
+const text="Hoje não é apenas seu aniversário.\nÉ o dia de celebrar você e tudo que faz meu mundo melhor 💕";
+let i=0;
+
+/* TEXTO CARTA */
+const textoCarta="Hoje o mundo celebra você.\nEu celebro o privilégio de ter você na minha vida.\nPreparei uma noite especial… um jantar surpresa em um restaurante.\nVocê aceita viver isso comigo? 🍷✨";
+let j=0;
 
 /* SLIDES */
 const images=["fotos/1.jpg","fotos/2.jpg","fotos/3.jpg"];
 let slideIndex=0;
 
-/* TEXTO CARTA */
-const textoCarta="Hoje o mundo celebra você.\nEu celebro o privilégio de ter você na minha vida.\nPreparei uma noite especial… um jantar surpresa.\nVocê aceita viver isso comigo? 🍷✨";
-let j=0;
-
 /* DIGITAR TEXTO INICIAL */
 function type(){
   if(i<text.length){
     typing.innerHTML+=text[i]=="\n"?"<br>":text[i];
-    i++;setTimeout(type,40);
+    i++;
+    setTimeout(type,40);
   }else{
     toggleBtn.style.display="inline-block";
     revealBtn.style.display="inline-block";
@@ -158,7 +165,8 @@ function type(){
 /* INICIAR */
 startBtn.onclick=()=>{
   startBtn.style.display="none";
-  music.play();
+  music.volume=0;
+  music.play().catch(()=>{});
   fadeIn();
   type();
   hearts();
@@ -167,22 +175,30 @@ startBtn.onclick=()=>{
 /* FADE IN MUSICA */
 function fadeIn(){
   let v=0;
-  const f=setInterval(()=>{
-    if(v<1){v+=0.02;music.volume=v}
-    else clearInterval(f);
+  const fade=setInterval(()=>{
+    if(v<1){
+      v+=0.02;
+      music.volume=v;
+    }else{
+      clearInterval(fade);
+    }
   },100);
 }
 
-/* TOGGLE MUSICA */
+/* PAUSAR/TOCAR */
 toggleBtn.onclick=()=>{
-  music.paused?music.play():music.pause();
+  if(music.paused){
+    music.play();
+    toggleBtn.innerText="🔊 Pausar Música";
+  }else{
+    music.pause();
+    toggleBtn.innerText="▶️ Tocar Música";
+  }
 }
 
 /* REVELAR CARTA */
 revealBtn.onclick=()=>{
   revealBtn.style.display="none";
-  toggleBtn.style.display="none";
-
   const carta=document.getElementById("carta");
   const cartaInterna=document.getElementById("cartaInterna");
 
@@ -201,7 +217,8 @@ function escreverCarta(){
   function digitar(){
     if(j<textoCarta.length){
       el.innerHTML+=textoCarta[j]=="\n"?"<br>":textoCarta[j];
-      j++;setTimeout(digitar,40);
+      j++;
+      setTimeout(digitar,40);
     }
   }
   digitar();
@@ -212,7 +229,7 @@ function slideshow(){
   setInterval(()=>{
     slideIndex=(slideIndex+1)%images.length;
     document.getElementById("slide").src=images[slideIndex];
-  },2500);
+  },3000);
 }
 
 /* CORAÇÕES */
@@ -225,7 +242,7 @@ function hearts(){
     h.style.animationDuration=3+Math.random()*3+"s";
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),6000);
-  },300);
+  },400);
 }
 
 /* WHATSAPP */
@@ -233,7 +250,7 @@ function confirmar(){
   window.open("https://wa.me/5592994047770?text=Eu%20aceito%20o%20jantar%20💖","_blank");
 }
 
-
 </script>
+
 </body>
 </html>
