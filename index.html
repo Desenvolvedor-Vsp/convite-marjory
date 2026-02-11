@@ -7,6 +7,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
 body{
   min-height:100vh;
   background:linear-gradient(135deg,#ff758c,#ff7eb3);
@@ -16,6 +17,7 @@ body{
   overflow:hidden;
   color:#fff;
 }
+
 .card{
   width:100%;
   max-width:420px;
@@ -26,9 +28,11 @@ body{
   text-align:center;
   animation:fade 1.5s;
 }
+
 h1{font-size:2.2rem}
 .date{margin-bottom:15px;opacity:.9}
 .typing{min-height:90px;font-size:1.05rem;margin:15px 0}
+
 button{
   border:none;
   border-radius:30px;
@@ -39,21 +43,9 @@ button{
   cursor:pointer;
   transition:.3s;
 }
+
 button:hover{transform:scale(1.05)}
-.gallery{
-  display:none;
-  margin-top:15px;
-}
-.gallery img{
-  width:100%;
-  border-radius:15px;
-  animation:fade 1s;
-}
-.final{
-  display:none;
-  margin-top:15px;
-  animation:fade 1.2s;
-}
+
 @keyframes fade{
   from{opacity:0;transform:translateY(15px)}
   to{opacity:1;transform:translateY(0)}
@@ -68,8 +60,43 @@ button:hover{transform:scale(1.05)}
   animation:fall linear infinite;
   opacity:.8;
 }
+
 @keyframes fall{
   to{transform:translateY(110vh)}
+}
+
+/* Carta */
+#carta{
+  display:none;
+  margin-top:20px;
+  perspective:1000px;
+}
+
+#cartaInterna{
+  background:#fff;
+  color:#333;
+  padding:20px;
+  border-radius:15px;
+  transform:rotateY(90deg);
+  transition:1s;
+  font-family:Georgia, serif;
+  line-height:1.6;
+}
+
+#slideshow img{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+/* Video */
+#videoContainer{
+  display:none;
+  margin-top:15px;
+}
+video{
+  width:100%;
+  border-radius:15px;
 }
 </style>
 </head>
@@ -90,25 +117,38 @@ button:hover{transform:scale(1.05)}
   <button id="toggleMusic" style="display:none">🔊 Música</button>
   <button id="reveal" style="display:none">🍷 Revelar surpresa</button>
 
-  <div class="gallery" id="gallery">
-    <img id="slide" src="fotos/1.jpg">
+  <!-- VIDEO -->
+  <div id="videoContainer">
+    <video id="video">
+      <source src="video.mp4" type="video/mp4">
+    </video>
   </div>
 
-  <div class="final" id="final">
-    ✨ Uma noite especial te espera ✨<br><br>
-    📍 Local: <b>Surpresa…</b><br>
-    🍽️ Um restaurante<br><br>
-    <button onclick="confirmar()">💌 Confirmar no WhatsApp</button>
+  <!-- CARTA -->
+  <div id="carta">
+    <div id="cartaInterna">
+      <h3 style="color:#ff4d6d;">Minha querida Marjory 💖</h3>
+      <p id="textoCarta"></p>
+
+      <div id="slideshow">
+        <img id="slide" src="fotos/1.jpg">
+      </div>
+
+      <button onclick="confirmar()" style="margin-top:10px;">
+        💌 Confirmar no WhatsApp
+      </button>
+    </div>
   </div>
 </div>
 
 <script>
-/* TEXTO DIGITANDO */
+
+/* TEXTO INICIAL DIGITANDO */
 const text="Hoje não é apenas seu aniversário.\nÉ o dia de celebrar você e tudo que faz meu mundo melhor 💕";
 let i=0;
 const typing=document.getElementById("typing");
 
-/* MUSICA FADE-IN */
+/* MUSICA */
 const music=document.getElementById("music");
 music.volume=0;
 
@@ -117,14 +157,19 @@ const startBtn=document.getElementById("start");
 const toggleBtn=document.getElementById("toggleMusic");
 const revealBtn=document.getElementById("reveal");
 
-/* SLIDESHOW */
+/* SLIDES */
 const images=["fotos/1.jpg","fotos/2.jpg","fotos/3.jpg"];
 let slideIndex=0;
 
+/* TEXTO CARTA */
+const textoCarta="Hoje o mundo celebra você.\nEu celebro o privilégio de ter você na minha vida.\nPreparei uma noite especial… um jantar surpresa.\nVocê aceita viver isso comigo? 🍷✨";
+let j=0;
+
+/* FUNÇÃO DIGITAR */
 function type(){
   if(i<text.length){
     typing.innerHTML+=text[i]=="\n"?"<br>":text[i];
-    i++;setTimeout(type,50);
+    i++;setTimeout(type,40);
   }else{
     toggleBtn.style.display="inline-block";
     revealBtn.style.display="inline-block";
@@ -154,11 +199,40 @@ toggleBtn.onclick=()=>{
   music.paused?music.play():music.pause();
 }
 
-/* REVELAÇÃO */
+/* REVELAR */
 revealBtn.onclick=()=>{
-  document.getElementById("gallery").style.display="block";
-  document.getElementById("final").style.display="block";
-  slideshow();
+  revealBtn.style.display="none";
+  toggleBtn.style.display="none";
+
+  const videoContainer=document.getElementById("videoContainer");
+  const video=document.getElementById("video");
+  const carta=document.getElementById("carta");
+  const cartaInterna=document.getElementById("cartaInterna");
+
+  videoContainer.style.display="block";
+  video.play();
+
+  video.onended=function(){
+    videoContainer.style.display="none";
+    carta.style.display="block";
+    setTimeout(()=>{
+      cartaInterna.style.transform="rotateY(0deg)";
+      escreverCarta();
+      slideshow();
+    },300);
+  }
+}
+
+/* ESCREVER CARTA */
+function escreverCarta(){
+  const el=document.getElementById("textoCarta");
+  function digitar(){
+    if(j<textoCarta.length){
+      el.innerHTML+=textoCarta[j]=="\n"?"<br>":textoCarta[j];
+      j++;setTimeout(digitar,40);
+    }
+  }
+  digitar();
 }
 
 /* SLIDESHOW */
@@ -186,7 +260,8 @@ function hearts(){
 function confirmar(){
   window.open("https://wa.me/55SEUNUMERO?text=Eu aceito o jantar 💖","_blank");
 }
-</script>
 
+</script>
 </body>
 </html>
+
