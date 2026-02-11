@@ -165,25 +165,15 @@ function type(){
 /* INICIAR */
 startBtn.onclick=()=>{
   startBtn.style.display="none";
-  music.volume=0;
-  music.play().catch(()=>{});
-  fadeIn();
+
+  music.volume = 0.6; // volume normal
+  music.play().catch(e => console.log("Erro ao tocar:", e));
+
   type();
   hearts();
 }
 
-/* FADE IN MUSICA */
-function fadeIn(){
-  let v=0;
-  const fade=setInterval(()=>{
-    if(v<1){
-      v+=0.02;
-      music.volume=v;
-    }else{
-      clearInterval(fade);
-    }
-  },100);
-}
+
 
 /* PAUSAR/TOCAR */
 toggleBtn.onclick=()=>{
